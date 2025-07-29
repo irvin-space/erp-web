@@ -24,7 +24,31 @@ import DataTable2 from '../componentesBase/DataTable2';
 import { SearchOutlined } from '@ant-design/icons';
 import { fontSize } from '@mui/system';
 
-const EstCambiosTramitesAduanales = () => {
+const EstCambiosTramitesAduanales =  () => {
+
+    const handleClick = async () => {
+    try {
+        console.log("hola")
+        const response = await fetch('http://localhost:3001/consulta', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+    "Procedimiento": "Combo_Tasas_Ivas",
+    "Parametros": {"otros":0,"solo_activas":0}
+})
+        });
+        const data = await response.json();
+        console.log('Respuesta del servidor:', data);
+    } catch (error) {
+        console.error('Error en la petición:', error);
+    }
+}
+
+
+
+
     return (
         <div>
             <Typography variant='h2'>Modificacion de Tramites Aduanales</Typography>
@@ -125,7 +149,7 @@ const EstCambiosTramitesAduanales = () => {
                         <Button variant="contained" color='secondary'>Cancelar</Button>
                     </Box>
                     <Box>
-                        <Button variant="contained">Imprimir</Button>
+                        <Button onClick={handleClick} variant="contained">Imprimir</Button>
                     </Box>
                 </Box>
 
